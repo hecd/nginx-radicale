@@ -1,0 +1,37 @@
+---
+- name: Install required packages
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - nginx
+  become: true
+
+- name: Set up certificates
+  include_role:
+    name: "hecd.lexicon-letsencrypt"
+
+- name: Create users credentials file
+  template:
+    src: templates/etc/radicale/users.j2
+    dest: /etc/radicale/users
+    owner: root
+    group: www-data
+    mode: 0640
+  become: true
+
+- name: Create nginx proxy site
+  template:
+    src: templates/etc/nginx/sites-available/radicale.conf.j2
+    dest: /etc/nginx/sites-available/radicale.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: Enable nginx proxy site
+  file:
+    src: /etc/nginx/sites-available/radicale.conf
+    dest: /etc/nginx/sites-enabled/radicale
+    state: link
+  become: true

@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+# nginx acts as an SSL encryption and authentication proxy for the radicale server.
+
+server {
+  listen       {{radicale_proxy_port}} ssl;
+  server_name  {{radicale_proxy_server_name}};
+
+  ssl_certificate {{ lle_dehydrated_repo }}/certs/{{radicale_proxy_server_name}}/fullchain.pem;
+  ssl_certificate_key {{ lle_dehydrated_repo }}/certs/{{radicale_proxy_server_name}}/privkey.pem;
+
+  location / {
+    # Relax body limit, allowing large contact images.
+    client_max_body_size 100M;
+    auth_basic "Authentication required";
+    auth_basic_user_file {{ radicale_credentials_file }};
+
+    proxy_pass http://127.0.0.1:{{radicale_port}}/;
+    proxy_pass_header Authorization;
+    proxy_set_header X-Script-Name /;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Remote-User $remote_user;
+  }
+}

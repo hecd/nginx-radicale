@@ -1,0 +1,15 @@
+galaxy_info:
+  author: hecd
+  description: A role installing and configuring nginx as a reverse proxy for Radicale on Debian 9. Implements authentication using nginx.
+  company:
+  license: GPLv3
+  min_ansible_version: 1.2
+  galaxy_tags: []
+  platforms:
+    - name: Debian
+      versions:
+        - 9
+dependencies:
+  - src: "https://github.com/hecd/lexicon-letsencrypt.git"
+    version: master
+    name: "hecd.lexicon-letsencrypt"

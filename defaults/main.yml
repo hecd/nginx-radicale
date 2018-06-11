@@ -1,0 +1,12 @@
+---
+radicale_proxy_port: 443
+radicale_proxy_server_name: sub.example.com
+radicale_port: 5232
+radicale_credentials_file: /etc/radicale/users
+# Credentials should typically be stored in an encrypted vault file.
+# bcrypt is not supported by nginx -> use MD5.
+# Password hash was generated using `htpasswd -n <username>`
+# Default password is "password" for both demo users.
+radicale_users:
+  - { name: user1, hash: "$apr1$vQH532UW$oG8IOODZCRtFjQNrIRlgn0"}
+  - { name: user2, hash: "$apr1$B4U919f6$A8E.nCD6jjRq1j16P.syR1"}

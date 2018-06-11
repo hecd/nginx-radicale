@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+# Stored in other directory than /etc/nginx since automated nginx hardening roles typically enforce root:root ownership on /etc/nginx causing this file to be unreadable for www-data
+
+{% for user in radicale_users %}
+{{user.name}}:{{user.hash}}
+{% endfor %}
