@@ -22,7 +22,7 @@ radicale_users: dictionary containing credentials on the format { name: <val>, h
 
 Dependencies
 ------------
-- https://github.com/hecd/lexicon-letsencrypt.git"
+- https://github.com/hecd/lexicon-letsencrypt.git
 
 Example Playbook
 ----------------
